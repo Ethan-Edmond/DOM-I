@@ -37,6 +37,67 @@ const siteContent = {
   },
 };
 
+const siteSects = {};
+{
+  let keys = Object.keys(siteContent);
+  let values = document.querySelector('.container').children;
+  for(let i = 0; i < keys.length; i++){
+    siteSects[keys[i]] = values[i];
+  }
+}
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"])
+logo.setAttribute('src', siteContent["nav"]["img-src"]);
+let ctaImg = document.getElementById("cta-img");
+ctaImg.src = siteContent["cta"]["img-src"];
+let middleImg = document.getElementById("middle-img");
+middleImg.src = siteContent["main-content"]["middle-img-src"];
+
+function changeToData (sectStr, queryStr){
+  let datas = Object.values(siteContent[sectStr]);
+  siteSects[sectStr].querySelectorAll(queryStr).forEach(function(child, index){
+    if (child.tagName === "IMG"){
+      child.src = datas[index];
+    } else {
+      child.textContent = datas[index];
+    }
+  });
+}
+changeToData("nav", "a, img");
+changeToData("cta", ".cta-text > *, img");
+changeToData("main-content", ".text-content > *, img");
+changeToData("contact", "*");
+changeToData("footer", "*");
+
+// // the first way I did it, I kinda realized halfway that I could do it with a function.
+// {
+//   let navTexts = Object.values(siteContent["nav"]).slice(0, -1);
+//   siteSects["nav"].querySelectorAll('a').forEach(function(link, index){
+//     link.textContent = navTexts[index];
+//   });
+// }
+// {
+//   let ctaTexts = Object.values(siteContent["cta"]).slice(0, -1);
+//   siteSects["cta"].querySelectorAll(".cta-text > *").forEach(function(child,index){
+//     child.textContent = ctaTexts[index];
+//   });
+// }
+// {
+//   let mainTexts = Object.values(siteContent["main-content"]);
+//   let mainChildren = siteSects["main-content"].querySelectorAll(".text-content > *, img");
+//   console.log(mainTexts);
+//   console.log(mainChildren);
+// }
+
+siteSects["nav"].querySelectorAll("nav > *").forEach(child => {
+  child.style.color = "green";
+});
+{
+  let first = document.createElement("a");
+  siteSects["nav"].children[0].prepend(first);
+  first.textContent = "FirstElem";
+  let last = document.createElement("a");
+  siteSects["nav"].children[0].appendChild(last);
+  last.textContent = "LastElem";
+}
+

@@ -46,12 +46,13 @@ const siteSects = {};
   }
 }
 // Example: Update the img src for the logo
-let logo = document.getElementById("logo-img");
-logo.setAttribute('src', siteContent["nav"]["img-src"]);
-let ctaImg = document.getElementById("cta-img");
-ctaImg.src = siteContent["cta"]["img-src"];
-let middleImg = document.getElementById("middle-img");
-middleImg.src = siteContent["main-content"]["middle-img-src"];
+// // I do this in my function
+// let logo = document.getElementById("logo-img");
+// logo.setAttribute('src', siteContent["nav"]["img-src"]);
+// let ctaImg = document.getElementById("cta-img");
+// ctaImg.src = siteContent["cta"]["img-src"];
+// let middleImg = document.getElementById("middle-img");
+// middleImg.src = siteContent["main-content"]["middle-img-src"];
 
 function changeToData (sectStr, queryStr){
   let datas = Object.values(siteContent[sectStr]);
@@ -100,4 +101,11 @@ siteSects["nav"].querySelectorAll("nav > *").forEach(child => {
   siteSects["nav"].children[0].appendChild(last);
   last.textContent = "LastElem";
 }
+
+
+// my style changes
+document.querySelectorAll("*").forEach(function(child){
+  child.style.maxWidth = "100%";
+});
+document.body.style.margin = "0 2%";
 

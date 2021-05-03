@@ -108,4 +108,14 @@ document.querySelectorAll("*").forEach(function(child){
   child.style.maxWidth = "100%";
 });
 document.body.style.margin = "0 2%";
+let topContent = document.querySelector(".top-content");
+topContent.children[0].style.textAlign = "left";
+topContent.children[1].style.textAlign = "right";
+let bottomContent = document.querySelector(".bottom-content");
+bottomContent.querySelectorAll(".text-content").forEach(child => {
+  child.style.textAlign = "center";
+  console.log(child);
+});
+siteSects["contact"].style.textAlign = "center";
+
 

@@ -36,6 +36,10 @@ const siteContent = {
     "copyright" : "Copyright Great Idea! 2018"
   },
 };
+// my button
+let updateButton = document.createElement("button");
+updateButton.textContent = "Update this site";
+document.body.prepend(updateButton);
 
 const siteSects = {};
 {
@@ -64,58 +68,63 @@ function changeToData (sectStr, queryStr){
     }
   });
 }
-changeToData("nav", "a, img");
-changeToData("cta", ".cta-text > *, img");
-changeToData("main-content", ".text-content > *, img");
-changeToData("contact", "*");
-changeToData("footer", "*");
+function updateSite (){
+  changeToData("nav", "a, img");
+  changeToData("cta", ".cta-text > *, img");
+  changeToData("main-content", ".text-content > *, img");
+  changeToData("contact", "*");
+  changeToData("footer", "*");
 
-// // the first way I did it, I kinda realized halfway that I could do it with a function.
-// {
-//   let navTexts = Object.values(siteContent["nav"]).slice(0, -1);
-//   siteSects["nav"].querySelectorAll('a').forEach(function(link, index){
-//     link.textContent = navTexts[index];
-//   });
-// }
-// {
-//   let ctaTexts = Object.values(siteContent["cta"]).slice(0, -1);
-//   siteSects["cta"].querySelectorAll(".cta-text > *").forEach(function(child,index){
-//     child.textContent = ctaTexts[index];
-//   });
-// }
-// {
-//   let mainTexts = Object.values(siteContent["main-content"]);
-//   let mainChildren = siteSects["main-content"].querySelectorAll(".text-content > *, img");
-//   console.log(mainTexts);
-//   console.log(mainChildren);
-// }
 
-siteSects["nav"].querySelectorAll("nav > *").forEach(child => {
-  child.style.color = "green";
-});
-{
-  let first = document.createElement("a");
-  siteSects["nav"].children[0].prepend(first);
-  first.textContent = "FirstElem";
-  let last = document.createElement("a");
-  siteSects["nav"].children[0].appendChild(last);
-  last.textContent = "LastElem";
+  // // the first way I did it, I kinda realized halfway that I could do it with a function.
+  // {
+  //   let navTexts = Object.values(siteContent["nav"]).slice(0, -1);
+  //   siteSects["nav"].querySelectorAll('a').forEach(function(link, index){
+  //     link.textContent = navTexts[index];
+  //   });
+  // }
+  // {
+  //   let ctaTexts = Object.values(siteContent["cta"]).slice(0, -1);
+  //   siteSects["cta"].querySelectorAll(".cta-text > *").forEach(function(child,index){
+  //     child.textContent = ctaTexts[index];
+  //   });
+  // }
+  // {
+  //   let mainTexts = Object.values(siteContent["main-content"]);
+  //   let mainChildren = siteSects["main-content"].querySelectorAll(".text-content > *, img");
+  //   console.log(mainTexts);
+  //   console.log(mainChildren);
+  // }
+
+  siteSects["nav"].querySelectorAll("nav > *").forEach(child => {
+    child.style.color = "green";
+  });
+  {
+    let first = document.createElement("a");
+    siteSects["nav"].children[0].prepend(first);
+    first.textContent = "FirstElem";
+    let last = document.createElement("a");
+    siteSects["nav"].children[0].appendChild(last);
+    last.textContent = "LastElem";
+  }
+
+
+  // my style changes
+  document.querySelectorAll("*").forEach(function(child){
+    child.style.maxWidth = "100%";
+  });
+  document.body.style.margin = "0 2%";
+  let topContent = document.querySelector(".top-content");
+  topContent.children[0].style.textAlign = "left";
+  topContent.children[1].style.textAlign = "right";
+  let bottomContent = document.querySelector(".bottom-content");
+  bottomContent.querySelectorAll(".text-content").forEach(child => {
+    child.style.textAlign = "center";
+    console.log(child);
+  });
+  siteSects["contact"].style.textAlign = "center";
+
+  updateButton.remove();
 }
 
-
-// my style changes
-document.querySelectorAll("*").forEach(function(child){
-  child.style.maxWidth = "100%";
-});
-document.body.style.margin = "0 2%";
-let topContent = document.querySelector(".top-content");
-topContent.children[0].style.textAlign = "left";
-topContent.children[1].style.textAlign = "right";
-let bottomContent = document.querySelector(".bottom-content");
-bottomContent.querySelectorAll(".text-content").forEach(child => {
-  child.style.textAlign = "center";
-  console.log(child);
-});
-siteSects["contact"].style.textAlign = "center";
-
-
+updateButton.addEventListener('click', updateSite);
